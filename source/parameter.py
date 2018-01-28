@@ -11,7 +11,7 @@ def get_digit():
 
 
 def get_threshold():
-    return 1e-2/get_power_float2int()
+    return 1e-1/get_power_float2int()
 
 
 def main():

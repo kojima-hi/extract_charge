@@ -10,8 +10,10 @@ def get_parse():
                         help='Gaussian output file (input)')
     parser.add_argument('--condition', '-c', type=str, required=True,
                         help='Condition file (Input)')
-    parser.add_argument('--dop', type=int, required=True,
-                        help='Degree of polymerization (Input)')
+    parser.add_argument('--dop_go', type=int, required=True,
+                        help='Degree of polymerization in Gaussian output(Input)')
+    parser.add_argument('--dop_md', type=int, required=True,
+                        help='Degree of polymerization in MD(Input)')
     parser.add_argument('--output', '-o', type=str, default='esp.dat',
                         help='ESP data (output)')
     parser.add_argument('--type', type=str,

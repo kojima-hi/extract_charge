@@ -7,7 +7,7 @@ def check_polymer(all_charge, pol_info):
     num_charges = all_charge.size
 
     # calculate number of atoms in polymer
-    dop_middle = pol_info['dop'] - 2
+    dop_middle = pol_info['dop_go'] - 2
     num_atoms = pol_info['middle']['num'] * dop_middle + pol_info['head']['num'] + pol_info['tail']['num']
 
     if num_charges == num_atoms:
@@ -74,8 +74,8 @@ def get_hydrogens_info(info):
     return np.array(info.split(','), dtype=np.int32) - 1 # convert start-number from 1 to 0
 
 
-def get_polymer_info(path_cnd, dop):
-    pol_info = {'dop': dop}
+def get_polymer_info(path_cnd, dop_go, dop_md):
+    pol_info = {'dop_go': dop_go, 'dop_md': dop_md}
 
     num_atom_middle = None
     with open(path_cnd, 'r') as f:

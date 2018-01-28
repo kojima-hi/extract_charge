@@ -71,7 +71,7 @@ def extract_segment_esp(all_charge, pol_info):
     # calculate skip atoms for extraction from center
     noa_middle = pol_info['middle']['num']
     noa_head = pol_info['head']['num']
-    skip_middle_num = int(((pol_info['dop'] - 1) / 2) - 1)
+    skip_middle_num = int(((pol_info['dop_go'] - 1) / 2) - 1)
     skip_atoms = noa_head + (pol_info['middle']['num'] * skip_middle_num)
 
     # extract

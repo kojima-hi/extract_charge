@@ -39,7 +39,7 @@ def check_neutral_file(path):
 
 
 def construct_polymer_charge(middle_charges, pol_info, path):
-    middle_repeat = pol_info['dop'] - 2
+    middle_repeat = pol_info['dop_md'] - 2
 
     head_charges = np.zeros(pol_info['head']['num'], dtype=np.float32)
     head_charges = construct_end_charge(middle_charges, head_charges, pol_info['head'])
@@ -74,18 +74,18 @@ def main():
     all_charge = get_charges(args.input)
 
     if args.type == 'polymer':
-        pol_info = get_polymer_info(args.condition, args.dop)
+        pol_info = get_polymer_info(args.condition, args.dop_go, args.dop_md)
 
-        # check polymer
+        # check polymer by comparing number of atoms
         check_polymer(all_charge, pol_info)
 
-        # extract_inter_esp
+        # extract charges of repeating segment
         segment_charge = extract_segment_esp(all_charge, pol_info)
 
         # average charges
         segment_charge = average_charge(segment_charge, pol_info['middle']['average'])
 
-        # check neutral
+        # check neutral of segment
         segment_charge = check_neutral(segment_charge, pol_info['middle']['hydrogens'])
 
         # construct_polymer_charge
