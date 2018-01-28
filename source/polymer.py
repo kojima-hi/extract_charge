@@ -26,14 +26,14 @@ def get_end_info(end_type, num_atom_middle):
     if 'h' == end_type:
         info['num'] = 1 + num_atom_middle
 
-        # copy info
+        # copy info (1. mimicks repeating segment atom)
         info['copy'] = copy_lst
 
-        # average info
+        # average info (2. averaging for the same bonding atom type)
         average_lst.append(np.array([2, 3, n+1], dtype=np.int32) - 1)
         info['average'] = average_lst
 
-        # hydrogens info
+        # hydrogens info (3. for neutralization, only main chain hydrogens are selected)
         info['hydrogens'] = np.array([2, 3, n+1], dtype=np.int32) - 1
 
     elif 'ch3' == end_type:
@@ -50,7 +50,7 @@ def get_end_info(end_type, num_atom_middle):
         info['average'] = average_lst
 
         # hydrogens info
-        info['hydrogens'] = np.array([n+2, n+3, n+4], dtype=np.int32) - 1
+        info['hydrogens'] = np.array([2, 3, 5, n+2, n+3, n+4], dtype=np.int32) - 1
 
     else:
         print('Error: ', end_type, 'is not assisted.')
