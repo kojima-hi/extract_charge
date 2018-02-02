@@ -34,6 +34,20 @@ def check_neutral_file(path):
         return False
 
 
+def write_each_parts(path, head_charges, middle_charges, tail_charges):
+
+    strs = ['middle:', 'head:', 'tail:']
+    chg_parts = [middle_charges, head_charges, tail_charges]
+    with open(path, 'w') as f:
+        for str, chg_part in zip(strs, chg_parts):
+            f.write('%s\n'%(str))
+            for chg in chg_part:
+                f.write('%10.6f\n'%(chg))
+            f.write('\n')
+
+    return
+
+
 def construct_polymer_charge(middle_charges, pol_info, path):
     middle_repeat = pol_info['dop_md'] - 2
 
@@ -55,6 +69,7 @@ def construct_polymer_charge(middle_charges, pol_info, path):
             f.write('%10.6f\n'%(chg))
 
     if check_neutral_file(path):
+        write_each_parts(path+'.segment', head_charges, middle_charges, tail_charges)
         print('Neutral polymer construction is succeeded.')
         return
     else:
