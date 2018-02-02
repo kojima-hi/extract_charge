@@ -34,17 +34,19 @@ def check_neutral_file(path):
         return False
 
 
-def write_each_parts(path, head_charges, middle_charges, tail_charges):
+def __write_segment(f, title, chg_part):
+    f.write('%s\n'%(title))
+    for chg in chg_part:
+        f.write('%10.6f\n'%(chg))
+    f.write('\n')
+    return
 
-    strs = ['middle:', 'head:', 'tail:']
-    chg_parts = [middle_charges, head_charges, tail_charges]
+
+def write_segment(path, titles, chg_segments):
+
     with open(path, 'w') as f:
-        for str, chg_part in zip(strs, chg_parts):
-            f.write('%s\n'%(str))
-            for chg in chg_part:
-                f.write('%10.6f\n'%(chg))
-            f.write('\n')
-
+        for title, chg_segment in zip(titles, chg_segments):
+            __write_segment(f, title, chg_segment)
     return
 
 
@@ -69,7 +71,11 @@ def construct_polymer_charge(middle_charges, pol_info, path):
             f.write('%10.6f\n'%(chg))
 
     if check_neutral_file(path):
-        write_each_parts(path+'.segment', head_charges, middle_charges, tail_charges)
+        # write out segments charges
+        titles = ['middle:', 'head:', 'tail:']
+        chg_segments = [middle_charges, head_charges, tail_charges]
+        write_segment(path+'.segment', titles, chg_segments)
+
         print('Neutral polymer construction is succeeded.')
         return
     else:

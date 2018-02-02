@@ -3,7 +3,8 @@
 import numpy as np
 import os
 from IO import get_parse
-from charge import get_charges, extract_segment_esp, average_charge, check_neutral, construct_polymer_charge
+from charge import get_charges, extract_segment_esp, average_charge, check_neutral, \
+    construct_polymer_charge, write_segment
 from polymer import check_polymer, get_polymer_info
 from parameter import get_threshold
 
@@ -21,6 +22,8 @@ def main():
 
         # extract charges of repeating segment
         segment_charge = extract_segment_esp(all_charge, pol_info)
+        # output extracted original charges
+        write_segment(args.output+'.orig', ['original'], [segment_charge])
 
         # average charges
         segment_charge = average_charge(segment_charge, pol_info['middle']['average'])
